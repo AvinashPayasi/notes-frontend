@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notes System — Dashboard</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" type="image/png" href="images/favicon.png">
+</head>
+<body data-page="dashboard">
+  
+<div class="app-shell">
+  
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <a class="brand" href="dashboard.html">
+      <div class="brand-mark">N</div>
+      <span class="brand-text">Notes System</span>
+    </a>
+    <button class="menu-toggle" id="sidebarToggleInside" aria-label="Toggle sidebar">☰</button>
+  </div>
+<nav class="nav">
+  <div class="nav-group">
+    <div class="dashboard-row">
+      <a href="dashboard.html" class="nav-link dashboard-link">
+        <span class="nav-icon">📒</span>
+        <span class="nav-text">Dashboard</span>
+      </a>
+      <button
+        type="button"
+        class="dashboard-arrow-btn"
+        data-action="toggle-dashboard-menu">
+        <span id="dashboardArrow">▼</span>
+      </button>
+    </div>
+    <div id="dashboardMenu" class="submenu">
+      <button
+        class="nav-link sub-link"
+        type="button"
+        data-action="scroll-active">
+        Active Notes
+      </button>
+      <button
+        class="nav-link sub-link"
+        type="button"
+        data-action="scroll-pinned">
+        Pinned Notes
+      </button>
+    </div>
+  </div>
+  <a href="archive.html">
+    <span class="nav-icon">🗄️</span>
+    <span class="nav-text">Archived Notes</span>
+  </a>
+  <a href="trash.html">
+    <span class="nav-icon">🗑️</span>
+    <span class="nav-text">Trash</span>
+  </a>
+  </nav>
+  
+  <div class="sidebar-footer">
+    <div class="user-chip">
+      <div class="avatar" id="sideAvatar">NV</div>
+      <div class="user-meta">
+        <strong id="sideEmail">visitor</strong>
+        <small>Notes System Frontend</small>
+      </div>
+    </div>
+    <button class="ghost-btn" type="button" data-action="logout">Log out</button>
+  </div>
+</aside>
+
+  <div class="app-main">
+    
+<header class="topbar">
+  <div class="topbar-left">
+    <button class="menu-toggle" id="sidebarToggle" aria-label="Open menu">☰</button>
+    <div class="search-wrap">
+      <span class="search-icon">🔎</span>
+      <input id="searchInput" type="search" placeholder="Search notes, titles, content, or IDs" />
+    </div>
+  </div>
+  <div class="topbar-right">
+    <button class="secondary-btn" id="createNoteBtn" data-action="open-create-modal">+ Create Note</button>
+    <button class="avatar-btn" id="topAvatar" aria-label="User avatar">NV</button>
+  </div>
+</header>
+
+    <main class="content">
+      <section class="page-hero">
+        <div>
+          <h1 class="page-title">Dashboard</h1>
+          <p class="page-copy">A product-style workspace that mirrors the backend’s note lifecycle: active notes, pinned notes, archive actions, trash recovery, and page-based sorting.</p>
+        </div>
+      </section>
+
+      <section class="stats-grid" aria-label="Workspace summary">
+        <div class="stat-card"><div class="label">Total notes</div><div class="value" id="totalCount">0</div><div class="hint">All states combined.</div></div>
+        <div class="stat-card"><div class="label">Active notes</div><div class="value" id="activeCount">0</div><div class="hint">Primary workspace items.</div></div>
+        <div class="stat-card"><div class="label">Pinned notes</div><div class="value" id="pinnedCount">0</div><div class="hint">Shown at the top of dashboard.</div></div>
+        <div class="stat-card"><div class="label">Archived / Trash</div><div class="value"><span id="archiveCount">0</span> / <span id="trashCount">0</span></div><div class="hint">Secondary lifecycle states.</div></div>
+      </section>
+
+      <section class="panel" id="pinnedSection">
+        <div class="helper-band">
+          <div>
+            <strong>Pinned Notes</strong>
+            <span>High-priority notes stay visible here. Use the pin action on active or archived notes.</span>
+          </div>
+          <span><strong id="pinnedCountInline">0</strong> pinned items</span>
+        </div>
+        <div class="notes-grid" id="pinnedGrid"></div>
+      </section>
+
+      <div class="section-spacer"></div>
+
+      <section class="panel" id="activeSection">
+        <div class="panel-header">
+          <div>
+            <h3>Active Notes</h3>
+            <p id="pageHint">Pinned notes are shown separately above the active list.</p>
+          </div>
+          <div class="toolbar">
+            <select id="sortSelect" class="select" aria-label="Sort notes">
+              <option value="createdAt">Sort by created date</option>
+              <option value="title">Sort by title</option>
+              <option value="noteId">Sort by note ID</option>
+            </select>
+            <select id="directionSelect" class="select" aria-label="Sort direction">
+              <option value="desc">Newest first</option>
+              <option value="asc">Oldest first</option>
+            </select>
+            <select id="sizeSelect" class="select" aria-label="Page size">
+              <option value="4">4 / page</option>
+              <option value="6" selected>6 / page</option>
+              <option value="8">8 / page</option>
+              <option value="10">10 / page</option>
+            </select>
+            <select id="pageSelect" class="select" aria-label="Page number">
+              <option value="1">Page 1</option>
+            </select>
+          </div>
+        </div>
+        <div class="helper-band" style="border-top:1px solid rgba(219,227,238,.65)">
+          <div>
+            <strong id="noteCountLabel">0 active notes</strong>
+            <span>Use edit, archive, pin, or delete actions on each note card.</span>
+          </div>
+          <span>API model: page, size, sort, direction, state</span>
+        </div>
+        <div class="notes-grid" id="notesGrid"></div>
+        <div class="pagination" id="pagination"></div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<div class="modal" id="noteModal" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true">
+    <div class="modal-head">
+      <h3 id="modalTitle">Create Note</h3>
+      <button class="ghost-btn" type="button" data-close-modal>✕</button>
+    </div>
+    <form id="noteForm">
+      <div class="modal-body">
+        <p class="form-note" style="margin-top:0">The backend allows note creation with either a title, content, or both. This form follows the same rule.</p>
+        <div id="noteError" class="alert error" style="display:none"></div>
+        <div class="field-group">
+          <label for="noteTitle">Title</label>
+          <input class="input" type="text" id="noteTitle" placeholder="Meeting summary, feature idea, task list..." />
+        </div>
+        <div class="field-group">
+          <label for="noteBody">Note content</label>
+          <textarea class="input textarea" id="noteBody" placeholder="Write your note here..."></textarea>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="ghost-btn" type="button" data-close-modal>Cancel</button>
+        <button class="primary-btn" type="submit">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+  <div class="toast" id="toast" aria-live="polite"></div>
+  <script src="js/script.js"></script>
+</body>
+</html>

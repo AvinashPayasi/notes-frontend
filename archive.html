@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notes System — Archive</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" type="image/png" href="images/favicon.png">
+</head>
+<body data-page="archive">
+  
+<div class="app-shell">
+  
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <a class="brand" href="dashboard.html">
+      <div class="brand-mark">N</div>
+      <span class="brand-text">Notes System</span>
+    </a>
+    <button class="menu-toggle" id="sidebarToggleInside" aria-label="Toggle sidebar">☰</button>
+  </div>
+<nav class="nav">
+  <div class="nav-group">
+    <div class="dashboard-row">
+      <a href="dashboard.html" class="nav-link dashboard-link">
+        <span class="nav-icon">📒</span>
+        <span class="nav-text">Dashboard</span>
+      </a>
+      <button
+        type="button"
+        class="dashboard-arrow-btn"
+        data-action="toggle-dashboard-menu">
+        <span id="dashboardArrow">▼</span>
+      </button>
+    </div>
+    <div id="dashboardMenu" class="submenu">
+      <a href="dashboard.html#activeSection"
+        class="nav-link sub-link">
+        Active Notes
+      </a>
+      <a href="dashboard.html#pinnedSection"
+        class="nav-link sub-link">
+        Pinned Notes
+      </a>
+    </div>
+  </div>
+  <a href="archive.html" class="active">
+    <span class="nav-icon">🗄️</span>
+    <span class="nav-text">Archived Notes</span>
+  </a>
+  <a href="trash.html">
+    <span class="nav-icon">🗑️</span>
+    <span class="nav-text">Trash</span>
+  </a>
+  </nav>
+  
+  <div class="sidebar-footer">
+    <div class="user-chip">
+      <div class="avatar" id="sideAvatar">NV</div>
+      <div class="user-meta">
+        <strong id="sideEmail">visitor</strong>
+        <small>Notes System Frontend</small>
+      </div>
+    </div>
+    <button class="ghost-btn" type="button" data-action="logout">Log out</button>
+  </div>
+</aside>
+
+  <div class="app-main">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="menu-toggle" id="sidebarToggle" aria-label="Open menu">☰</button>
+        <div class="search-wrap">
+          <span class="search-icon">🔎</span>
+          <input id="searchInput" type="search" placeholder="Search archived notes" />
+        </div>
+      </div>
+      <div class="topbar-right">
+        <button class="avatar-btn" id="topAvatar" aria-label="User avatar">NV</button>
+      </div>
+    </header>
+    <main class="content">
+      <section class="page-hero">
+        <div>
+          <h1 class="page-title">Archived Notes</h1>
+          <p class="page-copy">Archived notes are preserved and can be returned to the active workspace whenever needed.</p>
+        </div>
+      </section>
+
+      <section class="stats-grid" aria-label="Archive summary">
+        <div class="stat-card"><div class="label">Archived notes</div><div class="value" id="totalCount">0</div><div class="hint">All archive items in one place.</div></div>
+        <div class="stat-card"><div class="label">Active notes</div><div class="value" id="activeCount">0</div><div class="hint">Workspace baseline.</div></div>
+        <div class="stat-card"><div class="label">Pinned notes</div><div class="value" id="pinnedCount">0</div><div class="hint">Allowed even in archive.</div></div>
+        <div class="stat-card"><div class="label">Trash notes</div><div class="value" id="trashCount">0</div><div class="hint">Soft deleted items.</div></div>
+      </section>
+
+      <section class="panel">
+        <div class="state-banner helper-band" id="stateBanner">
+          <div>
+            <strong>Archived Notes</strong>
+            <span>Stored away from the active workspace. Use unarchive, pin, or move to trash.</span>
+          </div>
+          <span><strong id="noteCountLabel">0 archived notes</strong></span>
+        </div>
+        <div class="panel-header">
+          <div>
+            <h3>Archive list</h3>
+            <p id="pageHint">Archived notes can be moved back to active before making changes.</p>
+          </div>
+          <div class="toolbar">
+            <select id="sortSelect" class="select">
+              <option value="createdAt">Sort by created date</option>
+              <option value="title">Sort by title</option>
+              <option value="noteId">Sort by note ID</option>
+            </select>
+            <select id="directionSelect" class="select">
+              <option value="desc">Newest first</option>
+              <option value="asc">Oldest first</option>
+            </select>
+            <select id="sizeSelect" class="select">
+              <option value="4">4 / page</option>
+              <option value="6" selected>6 / page</option>
+              <option value="8">8 / page</option>
+              <option value="10">10 / page</option>
+            </select>
+            <select id="pageSelect" class="select"><option value="1">Page 1</option></select>
+          </div>
+        </div>
+        <div class="notes-grid" id="notesGrid"></div>
+        <div class="pagination" id="pagination"></div>
+      </section>
+    </main>
+  </div>
+</div>
+
+  <div class="toast" id="toast" aria-live="polite"></div>
+  <script src="js/script.js"></script>
+</body>
+</html>
